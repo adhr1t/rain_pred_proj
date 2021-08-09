@@ -1,2 +1,1 @@
-# rain_pred_proj
-Repo for Australian rain prediction project.
+# Australian Rain Predictor: Project Overview
