@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from pandas.api.types import is_numeric_dtype, is_string_dtype
+from sklearn.preprocessing import LabelEncoder
 
 df = pd.read_csv('weatherAUS.csv')
 
@@ -33,12 +34,29 @@ for i in catVar:
     if df[i].isnull().any():
         df[i].fillna('Unknown', inplace = True)
         
-# df_out = df.to_csv('aus_rain.csv', index = False)
+# df_out = df.to_csv('aus_rain_EDA.csv', index = False)
 
 # remove the outliers in the Rainfall column that we noticed in our EDA
 df = df[df['Rainfall'] < df['Rainfall'].quantile(.9)]
 
-# Feature Engineering
+
+## Feature Engineering
+# parse out month from Date column
+df['Month'] = df['Date'].apply(lambda x: str(x).split('/')[0])
 
 
-        
+## variable encoding
+# encode categorical variables
+cat_features = ['Month','Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm', 'RainToday','RainTomorrow']
+for i in cat_features:
+    df[i] = LabelEncoder().fit_transform(df[i])
+    
+
+# df_outEnc = df.to_csv('aus_rain_EDA_enc.csv', index = False)
+
+
+# drop and rearrange columns; we are dropping columns that are highly correlated in order to minimize multicollinearity 
+df = df[['Month', 'Location', 'MinTemp', 'MaxTemp','WindGustDir', 'WindGustSpeed', 'WindDir9am', 'WindDir3pm',
+       'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 'Pressure3pm', 'RainToday','RainTomorrow']]
+
+# df_outFin = df.to_csv('aus_rain_Fin.csv', index = False)
