@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.svm import SVC
+from sklearn.pipeline import Pipeline
 
 
 df = pd.read_csv('aus_rain_Fin.csv')
@@ -82,3 +85,64 @@ metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8344
 
 
 ## Random Forest Regression
+# Random Forest with Normalized variables; base variables are miniscually worse
+rfc = RandomForestClassifier()
+rfc.fit(X_train,Y_train)
+Y_pred_rfc = rfc.predict(X_test)
+
+# Confusion Matrix
+confusion_matrix(Y_test, Y_pred_rfc)
+confMatrix = metrics.plot_confusion_matrix(rfc, X_test, Y_test, cmap = 'coolwarm')  # true negative rate good, need to improve true pos
+
+# Classification Report; Accuracy included in this and confirmed by cross validation
+print(classification_report(Y_test, Y_pred_rfc))
+
+# Accuracy 
+rfc_cv_acc_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring= 'accuracy'))    # Accuracy score is .8615
+
+# ROC and AUC
+rfc_cv_AUC_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring= 'roc_auc'))    # AUC score is .8628
+
+
+## Standard Vector Machine; far too inefficient to be used. Accuracy and AUC scores were both lower than random forest's
+# SVM with Normalized variables
+#svmc = SVC(kernel='rbf', random_state = 42)
+#svmc.fit(X_train, Y_train)
+#Y_pred_SVM = svmc.predict(X_test)
+
+# Confusion Matrix
+#confusion_matrix(Y_test, Y_pred_SVM)
+#confMatrix = metrics.plot_confusion_matrix(svmc, X_test, Y_test, cmap = 'coolwarm')  # true negative rate good, need to improve true pos
+
+# Classification Report; Accuracy included in this and confirmed by cross validation
+#print(classification_report(Y_test, Y_pred_SVM))
+
+# Accuracy 
+#svmc_cv_acc_score = np.mean(cross_val_score(svmc, X_train, Y_train, cv=3, scoring= 'accuracy'))    # Accuracy score is .8548
+
+# ROC and AUC
+#svmc_cv_AUC_score = np.mean(cross_val_score(svmc, X_train, Y_train, cv=3, scoring= 'roc_auc'))      # AUC score is .8205
+
+
+## Grid Search of best performing algorithms: Logistic Regression and Random Forest
+# Create first pipeline for base without reducing features.
+
+pipe = Pipeline([('classifier' , RandomForestClassifier())])
+# pipe = Pipeline([('classifier', RandomForestClassifier())])
+
+# Create param grid
+param_grid = [
+    {'classifier' : [LogisticRegression()],
+     'classifier__penalty' : ['l1', 'l2'],
+    'classifier__C' : np.logspace(-4, 4, 20),
+    'classifier__solver' : ['liblinear']},
+    {'classifier' : [RandomForestClassifier()],
+    'classifier__n_estimators' : range(10,300,10),
+    'classifier__max_features' : ('auto','sqrt','log2')}
+]
+
+# Create grid search object
+gs = GridSearchCV(pipe, param_grid = param_grid, cv = 3, verbose=True, n_jobs=-1)
+best_gs = gs.fit(X_train, Y_train)
+gs.best_score_
+gs.best_estimator_
