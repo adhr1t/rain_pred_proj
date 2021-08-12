@@ -9,6 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
+import pickle
 
 
 df = pd.read_csv('aus_rain_Fin.csv')
@@ -20,10 +21,12 @@ Y = df.RainTomorrow.values
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
 
+
 # Base Logistic Regression
 reg = LogisticRegression(max_iter = 300)
 reg.fit(X_train, Y_train)
 Y_pred = reg.predict(X_test)
+
 
 
 ## Model Evaluation
@@ -38,6 +41,7 @@ Y_pred_prob = reg.predict_log_proba(X_test)[:,1]
 fpr, tpr, threshold = metrics.roc_curve(Y_test, Y_pred_prob)
 #plt.plot(fpr, tpr)
 metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8221
+
 
 
 ## Model Tuning
@@ -62,6 +66,7 @@ fpr, tpr, threshold = metrics.roc_curve(Y_test, Y_pred_prob)
 metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8344
 
 
+
 # Variable Resampling; performed significanlty worse than base and normalized values
 # reset train and test
 #X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.2, random_state = 42)
@@ -84,6 +89,7 @@ metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8344
 #metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8180
 
 
+
 ## Random Forest Regression
 # Random Forest with Normalized variables; base variables are miniscually worse
 rfc = RandomForestClassifier()
@@ -102,6 +108,7 @@ rfc_cv_acc_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring=
 
 # ROC and AUC
 rfc_cv_AUC_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring= 'roc_auc'))    # AUC score is .8628
+
 
 
 ## Standard Vector Machine; far too inefficient to be used. Accuracy and AUC scores were both lower than random forest's
@@ -124,6 +131,7 @@ rfc_cv_AUC_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring=
 #svmc_cv_AUC_score = np.mean(cross_val_score(svmc, X_train, Y_train, cv=3, scoring= 'roc_auc'))      # AUC score is .8205
 
 
+
 ## Grid Search of best performing algorithms: Logistic Regression and Random Forest
 # Create first pipeline for base without reducing features.
 
@@ -144,5 +152,35 @@ param_grid = [
 # Create grid search object
 gs = GridSearchCV(pipe, param_grid = param_grid, cv = 3, verbose=True, n_jobs=-1)
 best_gs = gs.fit(X_train, Y_train)
-gs.best_score_
-gs.best_estimator_
+gs.best_score_      # 
+gs.best_estimator_  # n_estimators = 170
+
+
+# Classification Report
+classes = best_gs.predict(X_test)
+print(metrics.classification_report(classes, Y_test))
+
+# Accuracy
+best_gs.score(X_test, Y_test)   # Accuracy score is .8667
+
+# ROC and AUC
+probs = best_gs.predict_proba(X_test)
+preds = probs[:,1]
+fpr, tpr, threshold = metrics.roc_curve(Y_test, preds)
+roc_auc = metrics.auc(fpr, tpr)     # AUC score is .8670
+
+
+
+## Pickle model 
+# doing this incase we want to build an API later or just so we don't have to train and cross validate the models again
+pickl = {'model': gs.best_estimator_}
+pickle.dump( pickl, open('model_file' + ".p", "wb" ))
+
+# test if pickled model actually works
+file_name = "model_file.p"
+with open(file_name, 'rb') as pickled:
+    data = pickle.load(pickled)
+    model = data['model']
+    
+for i in range(len(df)):
+    print(model.predict(X_test[i].reshape(1,-1)))    # test the model to make sure it works
