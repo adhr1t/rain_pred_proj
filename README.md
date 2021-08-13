@@ -7,7 +7,7 @@
 
 # Code and Resources Used
 **Python Version:** 3.9\
-**Packages:**   pandas, numpy, sklearn, seaborn, pickle\
+**Packages:**   pandas, numpy, sklearn, seaborn, pickle
 
 # Cleaning
 Began cleaning and feature selection through the following changes:
