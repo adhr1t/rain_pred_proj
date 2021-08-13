@@ -152,7 +152,7 @@ param_grid = [
 # Create grid search object
 gs = GridSearchCV(pipe, param_grid = param_grid, cv = 3, verbose=True, n_jobs=-1)
 best_gs = gs.fit(X_train, Y_train)
-gs.best_score_      # 
+gs.best_score_      # Random Forest Classifier had best performance
 gs.best_estimator_  # n_estimators = 170
 
 
