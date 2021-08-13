@@ -39,5 +39,5 @@ The models I tried:
 # Model Performance
 The Random Forest model performed the best on the test and validation sets.
   *   **Random Forest Classifier:** Accuracy = .8667; AUC = .8670
-  *   **Support Vector Machine:** Accuracy = .8548; AUC = .8205
   *   **Logistic Regression:** Accuracy = .8545; AUC = .8344
+  *   **Support Vector Machine:** Accuracy = .8548; AUC = .8205
