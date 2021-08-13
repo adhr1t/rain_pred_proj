@@ -21,8 +21,8 @@ Began cleaning and feature selection through the following changes:
 # EDA
 I built histograms and bar charts to help understand our data and note any immediate trends. I also made a heatmap to make correlations limpid.
 
-<img width="200" alt="location" src="https://user-images.githubusercontent.com/72672768/129390570-45730e4c-e8fa-4179-a359-e0dc8807d662.png">
-<img width="200" alt="WindGustSpeed" src="https://user-images.githubusercontent.com/72672768/129390430-8cb6f788-e586-496e-a0f1-42fe3d811bb5.png">
-<img width="200" alt="Temp3pm" src="https://user-images.githubusercontent.com/72672768/129390433-a9c59e75-31c2-44c9-9b73-616d25c84dce.png">
-<img width="200" alt="heatmap" src="https://user-images.githubusercontent.com/72672768/129390117-5399c19d-f886-4ff6-b2ce-5e89b5a22098.png">
+<img width="250" alt="location" src="https://user-images.githubusercontent.com/72672768/129390570-45730e4c-e8fa-4179-a359-e0dc8807d662.png">
+<img width="250" alt="WindGustSpeed" src="https://user-images.githubusercontent.com/72672768/129390430-8cb6f788-e586-496e-a0f1-42fe3d811bb5.png">
+<img width="250" alt="Temp3pm" src="https://user-images.githubusercontent.com/72672768/129390433-a9c59e75-31c2-44c9-9b73-616d25c84dce.png">
+<img width="325" alt="heatmap" src="https://user-images.githubusercontent.com/72672768/129390117-5399c19d-f886-4ff6-b2ce-5e89b5a22098.png">
 
