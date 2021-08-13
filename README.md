@@ -5,7 +5,9 @@
 *   Tuned models by testing the efficacity of Normalizing and Resampling variables; Normalizing improved model performance and Resampling was deleterious
 *   Optimized Logistic Regression and Random Forest Classifiers using Pipeline and GridsearchCV to reach the best model
 
-
+# Code and Resources Used
+**Python Version:** 3.9\
+**Packages:**   pandas, numpy, sklearn, seaborn, pickle\
 
 
 
