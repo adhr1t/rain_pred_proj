@@ -38,6 +38,6 @@ The models I tried:
 
 # Model Performance
 The Random Forest model performed the best on the test and validation sets.
-  *   **Random Forest:** MAE = .1056
-  *   **Lasso Regression:** MAE = .5808
-  *   **Linear Regression:** MAE = 2.4482E-14 (this is getting overtrained)
+  *   **Random Forest Classifier:** Accuracy = .8667; AUC = .8670
+  *   **Support Vector Machine:** Accuracy = .8548; AUC = .8205
+  *   **Logistic Regression:** Accuracy = .8545; AUC = .8344
