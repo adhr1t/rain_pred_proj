@@ -11,10 +11,12 @@
 
 # Cleaning
 Began cleaning and feature selection through the following changes:
-*   Calculated the percent of missing data values for each column; removed columns in which nearly 40% of the data was missing
-*   Dropped rows in which data values for the "RainTomorrow" column were missing because they were essential for model testing
-*   Filled missing values in categorical columns with column averages
+*   Calculated the percent of missing data values for each column; removed columns where nearly 40% of the data was missing
+*   Dropped rows in which data values for the RainTomorrow column were missing because they were essential for model testing
+*   Filled missing values in categorical columns with column averages; filled missing values in categorical columns with "Unknown"
 *   Determined and removed outliers in Rainfall column
+*   Parsed out month from Date column
+*   Label Encoded Month, Location, WindGustDir, WindDir9am, WindDir3pm, RainToday, and RainTomorrow columns
 
 
 
