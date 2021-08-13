@@ -90,7 +90,7 @@ metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8344
 
 
 
-## Random Forest Regression
+## Random Forest Classifier
 # Random Forest with Normalized variables; base variables are miniscually worse
 rfc = RandomForestClassifier()
 rfc.fit(X_train,Y_train)
