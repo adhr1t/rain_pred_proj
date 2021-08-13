@@ -21,7 +21,9 @@ Began cleaning and feature selection through the following changes:
 # EDA
 I built histograms and bar charts to help understand our data and note any immediate trends. I also made a heatmap to make correlations limpid.
 
+
+
 <img width="365" alt="heatmap" src="https://user-images.githubusercontent.com/72672768/129390048-50546025-80ea-4cb4-af0a-2420330991e5.png">
 
-![results](https://user-images.githubusercontent.com/72672768/129390117-5399c19d-f886-4ff6-b2ce-5e89b5a22098.png)
+<img width="365" alt="heatmap" src="https://user-images.githubusercontent.com/72672768/129390117-5399c19d-f886-4ff6-b2ce-5e89b5a22098.png">
 
