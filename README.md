@@ -19,6 +19,6 @@ Began cleaning and feature selection through the following changes:
 *   Label Encoded Month, Location, WindGustDir, WindDir9am, WindDir3pm, RainToday, and RainTomorrow columns
 
 # EDA
-I built histograms and bar charts to help understand our data and note any immediate trends. Also made a heatmap to make correlations limpid.
+I built histograms and bar charts to help understand our data and note any immediate trends. I also made a heatmap to make correlations limpid.
 
 
