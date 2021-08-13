@@ -10,6 +10,10 @@
 **Packages:**   pandas, numpy, sklearn, seaborn, pickle\
 **Data Source:**  https://www.kaggle.com/jsphyg/weather-dataset-rattle-package
 
+# Cleaning
+Downloaded data from Kaggle data source and began cleaning and feature selection through the following changes:
+*   Calculated the percent of missing data values for each column; removed columns in which nearly 40% of the data was missing
+*   Dropped rows in which data values for the "RainTomorrow" column were missing because they were essential for model testing
 
 
 
