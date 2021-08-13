@@ -26,3 +26,18 @@ I built histograms and bar charts to help understand our data and note any immed
 <img width="250" alt="Temp3pm" src="https://user-images.githubusercontent.com/72672768/129390433-a9c59e75-31c2-44c9-9b73-616d25c84dce.png">
 <img width="325" alt="heatmap" src="https://user-images.githubusercontent.com/72672768/129390117-5399c19d-f886-4ff6-b2ce-5e89b5a22098.png">
 
+# Model Building
+The first thing I did was split the data into train and test sets with a test size of 20%.
+
+I used three different models and evaluated them with Accuracy and Area Under Curve.
+
+The models I tried:
+  *   **Logistic Regression:** Benchmark for the model
+  *   **Random Forest Classifier:** I thought this would be a good model to try because of the many categorical variables 
+  *   **Support Vector Machine:** I wanted to try an SVM because this was a binary classification problem and frankly I was just curious because SVMs are such a classic classification algorithm
+
+# Model Performance
+The Random Forest model performed the best on the test and validation sets.
+  *   **Random Forest:** MAE = .1056
+  *   **Lasso Regression:** MAE = .5808
+  *   **Linear Regression:** MAE = 2.4482E-14 (this is getting overtrained)
