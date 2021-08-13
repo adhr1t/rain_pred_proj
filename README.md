@@ -29,7 +29,7 @@ I built histograms and bar charts to help understand our data and note any immed
 # Model Building
 The first thing I did was split the data into train and test sets with a test size of 20%.
 
-I used three different models and evaluated them with Accuracy and Area Under Curve.
+I used three different models and evaluated them with Accuracy and Area Under Curve. I trained the models on Normalized variables.
 
 The models I tried:
   *   **Logistic Regression:** Benchmark for the model
