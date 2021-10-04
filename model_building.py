@@ -29,7 +29,7 @@ Y_pred = reg.predict(X_test)
 
 
 
-## Model Evaluation
+## Base Logistic Regression Model Evaluation
 # Confusion Matrix: heatmap of all 4 possible scenarios (false pos, true pos, etc.)
 confMatrix = metrics.plot_confusion_matrix(reg, X_test, Y_test, cmap = 'coolwarm')  # true negative rate good, need to improve true pos
 
@@ -45,6 +45,7 @@ metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8221
 
 
 ## Model Tuning
+
 # Variable Normalization; performed slightly better than base values
 scaler = MinMaxScaler(feature_range = (0,1))
 
@@ -67,7 +68,8 @@ metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8344
 
 
 
-# Variable Resampling; performed significanlty worse than base and normalized values
+# Variable Resampling; performed significantly worse than base and normalized values
+
 # reset train and test
 #X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.2, random_state = 42)
 
@@ -91,6 +93,7 @@ metrics.roc_auc_score(Y_test, Y_pred_prob)  # AUC score is .8344
 
 
 ## Random Forest Classifier
+
 # Random Forest with Normalized variables; base variables are miniscually worse
 rfc = RandomForestClassifier()
 rfc.fit(X_train,Y_train)
@@ -112,6 +115,7 @@ rfc_cv_AUC_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring=
 
 
 ## Standard Vector Machine; far too inefficient to be used. Accuracy and AUC scores were both lower than random forest's
+
 # SVM with Normalized variables
 #svmc = SVC(kernel='rbf', random_state = 42)
 #svmc.fit(X_train, Y_train)
@@ -136,7 +140,6 @@ rfc_cv_AUC_score = np.mean(cross_val_score(rfc, X_train, Y_train, cv=3, scoring=
 # Create first pipeline for base without reducing features.
 
 pipe = Pipeline([('classifier' , RandomForestClassifier())])
-# pipe = Pipeline([('classifier', RandomForestClassifier())])
 
 # Create param grid
 param_grid = [
