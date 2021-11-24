@@ -7,7 +7,7 @@
 
 # Code and Resources Used
 **Python Version:** 3.9\
-**Packages:**   pandas, numpy, sklearn, seaborn, pickle
+**Packages:**   pandas, numpy, sklearn, seaborn, pickle\
 **Data Source:** https://www.kaggle.com/jsphyg/weather-dataset-rattle-package
 
 # Cleaning
